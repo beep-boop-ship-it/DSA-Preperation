@@ -24,6 +24,9 @@ int maxerel(const vector<int>&nums) {
             ans = bans;
             bans = nums[i];
         }
+      else if( nums[i]  > ans && nums[i] != bans){
+        ans = nums[i];
+      }
     }
     return ans;
 }
