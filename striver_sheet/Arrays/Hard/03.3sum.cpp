@@ -56,41 +56,36 @@ public:
     }
 };
 
-//better approach
-class Solution {
-public:
-    vector<vector<int>> threeSum(vector<int>& nums) { 
-     vector<vector<int>> ans;
 
-    sort(nums.begin(), nums.end());
+int main() {
+
+    vector<int>nums = inputarray();
+    set<vector<int>>solution;
 
     for (int i = 0; i < nums.size(); i++) {
-
-        // Skip duplicate fixed elements
-        if (i > 0 && nums[i] == nums[i - 1])
-            continue;
-
-        unordered_set<int> seen;
-
+        set<int>store;
         for (int j = i + 1; j < nums.size(); j++) {
-
-            int needed = -nums[i] - nums[j];
-
-            if (seen.count(needed)) {
-
-                ans.push_back({nums[i], needed, nums[j]});
-
-                // Skip duplicate j values
-                while (j + 1 < nums.size() && nums[j] == nums[j + 1])
-                    j++;
+            int third = -(nums[i] + nums[j]);
+            if (store.count(third)) {
+                vector<int>temp = {nums[i], nums[j], third};
+                sort(temp.begin(), temp.end());
+                solution.insert(temp);
             }
-
-            seen.insert(nums[j]);
+            store.insert(nums[j]);
         }
     }
-    return ans;
-    }
-};
 
+    vector<vector<int>>ans = {solution.begin(), solution.end()};
+
+    cout<<"required triplets: "<<endl;
+    for (int i = 0; i < ans.size(); i++) {
+        for (int j = 0; j < ans[i].size(); j++) {
+            cout << ans[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
 //brute force
 //lets not
